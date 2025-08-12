@@ -7,6 +7,29 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Automatic Deployment
+
+This project is configured with GitHub Actions for automatic deployment to your server (8.130.30.150) whenever changes are pushed to the main branch.
+
+### Setup
+
+To enable automatic deployment, you need to set up the following GitHub Secrets in your repository:
+
+1. `SERVER_USERNAME` - SSH username for your server
+2. `SERVER_SSH_KEY` - Private SSH key for authentication
+
+### How it works
+
+The deployment workflow is defined in `.github/workflows/deploy.yml`. It will:
+
+1. Checkout the code
+2. Setup Node.js environment
+3. Install dependencies
+4. Build the project (`npm run build`)
+5. Deploy the built files to your server via SCP
+
+The built files are deployed to `/var/www/html/` directory on your server.
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
